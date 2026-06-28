@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>邮箱验证 · 简记</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      background: linear-gradient(135deg, #f0fdf4 0%, #fffbeb 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: #1f2937;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 48px 32px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    }
+    .icon-wrap {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: #dcfce7;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .icon {
+      font-size: 48px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #1f2937;
+    }
+    .status {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 24px;
+      min-height: 24px;
+    }
+    .gift {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 24px 0;
+      font-size: 13px;
+      color: #92400e;
+      line-height: 1.6;
+    }
+    .gift strong {
+      color: #16a34a;
+      font-size: 14px;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .btn {
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 999px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .btn-primary {
+      background: #16a34a;
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: #6b7280;
+      font-size: 12px;
+    }
+    .error {
+      background: #fee2e2;
+      border: 1px solid #fecaca;
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #991b1b;
+      font-size: 13px;
+      margin-top: 12px;
+      text-align: left;
+      line-height: 1.6;
+    }
+    .footer {
+      margin-top: 32px;
+      font-size: 11px;
+      color: #9ca3af;
+    }
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #d1d5db;
+      border-top-color: #16a34a;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon-wrap">
+      <span class="icon" id="statusIcon">✅</span>
+    </div>
+    <h1 id="title">邮箱验证成功</h1>
+    <div class="status" id="status">
+      <span class="spinner"></span>正在确认验证状态...
+    </div>
+
+    <div class="gift">
+      🎁 <strong>新人福利</strong><br />
+      已为您赠送 <strong>3 个月会员体验</strong><br />
+      回到简记 App 登录即可享用
+    </div>
+
+    <div class="actions">
+      <a href="jianji://login" class="btn btn-primary">打开简记 App</a>
+      <a href="https://1125493231.github.io/jianji-legal/" class="btn btn-ghost">查看用户协议与隐私政策</a>
+    </div>
+
+    <div class="footer">
+      © 2026 简记 All Rights Reserved<br />
+      联系邮箱：1125493231@qq.com
+    </div>
+  </div>
+
+  <script>
+    // 解析 URL 中的 Supabase 验证参数
+    (function () {
+      var statusEl = document.getElementById('status');
+      var titleEl = document.getElementById('title');
+      var iconEl = document.getElementById('statusIcon');
+      var hash = window.location.hash || '';
+      var search = window.location.search || '';
+
+      // Supabase 邮箱验证成功后会在 hash 或 search 上带参数
+      // 如果带有 error 参数说明验证失败
+      var hasError = /error=/i.test(hash) || /error=/i.test(search);
+      var hasToken = /access_token=/i.test(hash) || /token_hash=/i.test(search);
+
+      setTimeout(function () {
+        if (hasError) {
+          iconEl.textContent = '⚠️';
+          titleEl.textContent = '验证链接已失效';
+          statusEl.innerHTML =
+            '<div class="error">链接可能已过期或被使用过，请重新发送验证邮件，或直接打开 App 使用"忘记密码"重置后登录。</div>';
+        } else if (hasToken) {
+          iconEl.textContent = '✅';
+          titleEl.textContent = '邮箱验证成功';
+          statusEl.textContent = '现在可以回到简记 App 登录了';
+        } else {
+          // 无参数说明用户直接打开了该页面
+          iconEl.textContent = '📧';
+          titleEl.textContent = '邮箱验证';
+          statusEl.textContent = '请点击注册邮件中的验证链接';
+        }
+      }, 400);
+    })();
+  </script>
+</body>
+</html>
