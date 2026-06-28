@@ -10,113 +10,153 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
         "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
-      background: linear-gradient(135deg, #f0fdf4 0%, #fffbeb 100%);
+      background: #f6f7f9;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 24px;
       color: #1f2937;
+      -webkit-font-smoothing: antialiased;
     }
     .card {
       background: #ffffff;
-      border-radius: 24px;
-      padding: 48px 32px;
+      border-radius: 20px;
+      padding: 56px 36px 40px;
       max-width: 420px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
     }
+
+    /* —— 状态图标：CSS 绘制的圆形对勾 / 警示 / 邮件 —— */
     .icon-wrap {
-      width: 88px;
-      height: 88px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
-      background: #dcfce7;
-      display: inline-flex;
+      margin: 0 auto 28px;
+      position: relative;
+      display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 24px;
     }
-    .icon {
-      font-size: 48px;
+
+    /* 默认成功态 */
+    .icon-wrap.success {
+      background: #f0fdf4;
     }
+    .icon-wrap.success::before {
+      content: "";
+      width: 24px;
+      height: 12px;
+      border-left: 3px solid #16a34a;
+      border-bottom: 3px solid #16a34a;
+      transform: rotate(-45deg) translate(2px, -2px);
+      border-radius: 1px;
+    }
+
+    /* 错误态 */
+    .icon-wrap.error {
+      background: #fef2f2;
+    }
+    .icon-wrap.error::before,
+    .icon-wrap.error::after {
+      content: "";
+      position: absolute;
+      width: 26px;
+      height: 3px;
+      background: #ef4444;
+      border-radius: 2px;
+    }
+    .icon-wrap.error::before { transform: rotate(45deg); }
+    .icon-wrap.error::after  { transform: rotate(-45deg); }
+
+    /* 默认态（无参数） */
+    .icon-wrap.pending {
+      background: #f3f4f6;
+    }
+    .icon-wrap.pending::before {
+      content: "";
+      width: 28px;
+      height: 20px;
+      border: 2px solid #9ca3af;
+      border-radius: 3px;
+    }
+    .icon-wrap.pending::after {
+      content: "";
+      position: absolute;
+      top: 26px;
+      width: 22px;
+      height: 11px;
+      border-left: 2px solid #9ca3af;
+      border-bottom: 2px solid #9ca3af;
+      transform: rotate(-45deg);
+      border-radius: 1px;
+    }
+
     h1 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: #1f2937;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #111827;
+      letter-spacing: 0.2px;
     }
     .status {
       font-size: 14px;
       color: #6b7280;
-      margin-bottom: 24px;
-      min-height: 24px;
-    }
-    .gift {
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      border-radius: 12px;
-      padding: 16px;
-      margin: 24px 0;
-      font-size: 13px;
-      color: #92400e;
       line-height: 1.6;
     }
-    .gift strong {
-      color: #16a34a;
-      font-size: 14px;
-    }
+
     .actions {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-top: 24px;
+      gap: 10px;
+      margin-top: 36px;
     }
     .btn {
       width: 100%;
       padding: 14px 20px;
-      border-radius: 999px;
+      border-radius: 12px;
       border: none;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      transition: opacity 0.2s;
+      transition: all 0.2s ease;
+      letter-spacing: 0.2px;
     }
     .btn-primary {
       background: #16a34a;
       color: #ffffff;
     }
     .btn-primary:hover {
-      opacity: 0.9;
+      background: #15803d;
     }
     .btn-ghost {
       background: transparent;
-      color: #6b7280;
+      color: #9ca3af;
       font-size: 12px;
+      font-weight: 500;
     }
-    .error {
-      background: #fee2e2;
-      border: 1px solid #fecaca;
-      border-radius: 12px;
-      padding: 12px 16px;
-      color: #991b1b;
-      font-size: 13px;
-      margin-top: 12px;
-      text-align: left;
-      line-height: 1.6;
+    .btn-ghost:hover {
+      color: #6b7280;
     }
+
     .footer {
       margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid #f3f4f6;
       font-size: 11px;
       color: #9ca3af;
+      line-height: 1.7;
     }
+
     .spinner {
       display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid #d1d5db;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #e5e7eb;
       border-top-color: #16a34a;
       border-radius: 50%;
       animation: spin 0.6s linear infinite;
@@ -130,18 +170,10 @@
 </head>
 <body>
   <div class="card">
-    <div class="icon-wrap">
-      <span class="icon" id="statusIcon">✅</span>
-    </div>
+    <div class="icon-wrap success" id="iconWrap"></div>
     <h1 id="title">邮箱验证成功</h1>
     <div class="status" id="status">
       <span class="spinner"></span>正在确认验证状态...
-    </div>
-
-    <div class="gift">
-      🎁 <strong>新人福利</strong><br />
-      已为您赠送 <strong>3 个月会员体验</strong><br />
-      回到简记 App 登录即可享用
     </div>
 
     <div class="actions">
@@ -150,40 +182,35 @@
     </div>
 
     <div class="footer">
-      © 2026 简记 All Rights Reserved<br />
+      © 2026 简记 · All Rights Reserved<br />
       联系邮箱：1125493231@qq.com
     </div>
   </div>
 
   <script>
-    // 解析 URL 中的 Supabase 验证参数
     (function () {
       var statusEl = document.getElementById('status');
       var titleEl = document.getElementById('title');
-      var iconEl = document.getElementById('statusIcon');
+      var iconWrap = document.getElementById('iconWrap');
       var hash = window.location.hash || '';
       var search = window.location.search || '';
 
-      // Supabase 邮箱验证成功后会在 hash 或 search 上带参数
-      // 如果带有 error 参数说明验证失败
       var hasError = /error=/i.test(hash) || /error=/i.test(search);
       var hasToken = /access_token=/i.test(hash) || /token_hash=/i.test(search);
 
       setTimeout(function () {
         if (hasError) {
-          iconEl.textContent = '⚠️';
+          iconWrap.className = 'icon-wrap error';
           titleEl.textContent = '验证链接已失效';
-          statusEl.innerHTML =
-            '<div class="error">链接可能已过期或被使用过，请重新发送验证邮件，或直接打开 App 使用"忘记密码"重置后登录。</div>';
+          statusEl.textContent = '链接可能已过期或被使用过，请回到 App 重新发送验证邮件。';
         } else if (hasToken) {
-          iconEl.textContent = '✅';
+          iconWrap.className = 'icon-wrap success';
           titleEl.textContent = '邮箱验证成功';
-          statusEl.textContent = '现在可以回到简记 App 登录了';
+          statusEl.textContent = '现在可以回到简记 App 登录使用了';
         } else {
-          // 无参数说明用户直接打开了该页面
-          iconEl.textContent = '📧';
+          iconWrap.className = 'icon-wrap pending';
           titleEl.textContent = '邮箱验证';
-          statusEl.textContent = '请点击注册邮件中的验证链接';
+          statusEl.textContent = '请点击注册邮件中的验证链接进行验证';
         }
       }, 400);
     })();
