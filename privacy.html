@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>隐私政策 - 简记</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.75;color:#1E293B;background:#F8FAFC;padding:20px}
+  .container{max-width:760px;margin:0 auto;background:#fff;padding:36px 32px;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  h1{font-size:26px;font-weight:700;color:#1E293B;margin-bottom:8px}
+  .meta{font-size:13px;color:#94A3B8;margin-bottom:28px;font-style:italic}
+  h2{font-size:17px;font-weight:700;color:#1E293B;margin:28px 0 12px;padding-top:8px;border-top:1px solid #F1F5F9}
+  h2:first-of-type{border-top:none;padding-top:0}
+  p{font-size:14px;color:#64748B;margin-bottom:10px}
+  ul{list-style:none;padding:0;margin:0 0 12px 4px}
+  li{font-size:14px;color:#64748B;padding-left:20px;position:relative;margin-bottom:6px}
+  li::before{content:"•";color:#22C55E;font-weight:bold;position:absolute;left:6px}
+  a{color:#22C55E;text-decoration:none}
+  a:hover{text-decoration:underline}
+  .footer{margin-top:40px;padding-top:20px;border-top:1px solid #F1F5F9;font-size:12px;color:#94A3B8;text-align:center}
+  .footer a{color:#94A3B8}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>隐私政策</h1>
+  <div class="meta">最后更新日期：2026.06.28</div>
+
+  <h2>1. 引言</h2>
+  <p>感谢您使用「简记」记账应用（以下简称"本应用"）。我们非常重视您的隐私保护，本隐私政策旨在向您说明我们如何收集、使用、存储和保护您的个人信息。请您仔细阅读并理解本政策的全部内容。</p>
+
+  <h2>2. 信息收集</h2>
+  <p>我们可能收集以下类型的信息：</p>
+  <ul>
+    <li>账户信息：注册邮箱、昵称、登录凭证（用于云同步与多端登录）</li>
+    <li>记账数据：您输入的收支金额、分类、备注、附图等</li>
+    <li>设备信息：设备型号、操作系统版本、应用版本，仅用于崩溃定位</li>
+    <li>使用数据：功能使用情况、崩溃日志（不包含具体记账内容）</li>
+    <li>语音数据：仅在您主动使用语音记账时录制，识别完成后即丢弃，不长期存储</li>
+  </ul>
+
+  <h2>3. 信息使用</h2>
+  <p>我们使用收集的信息用于：</p>
+  <ul>
+    <li>提供记账服务、统计分析与多端数据同步</li>
+    <li>改进应用性能和用户体验</li>
+    <li>提供 AI 智能记账与语音记账服务</li>
+    <li>发送账单提醒、预算提醒等本地通知（不会用于商业营销）</li>
+  </ul>
+
+  <h2>4. 数据存储与安全</h2>
+  <p>您的数据存储遵循以下原则：</p>
+  <ul>
+    <li>所有记账数据默认存储在本地 SQLite 数据库（位于您设备的应用沙箱内）</li>
+    <li>登录后启用云同步时，数据通过 HTTPS（TLS 1.2+）加密传输至 Supabase 云数据库</li>
+    <li>云端数据库启用行级安全（RLS），仅您本人凭账户凭证可访问自己的数据</li>
+    <li>账户密码经 bcrypt 哈希存储，工作人员无法查看明文</li>
+  </ul>
+  <p>请注意：虽然我们采用了上述安全措施，但互联网传输与移动设备本地存储均无法保证 100% 绝对安全，请您妥善保管账户密码与设备。</p>
+
+  <h2>5. 第三方服务（SDK）清单</h2>
+  <p>本应用集成以下第三方服务以提供完整功能：</p>
+  <ul>
+    <li>Supabase（提供方：Supabase Inc.）：账户鉴权与云端数据库，收集邮箱、加密后的密码与同步数据</li>
+    <li>DeepSeek AI（提供方：杭州深度求索人工智能基础技术研究有限公司）：智能记账与自然语言解析。仅在您主动使用 AI 记账时发送对话文本，不发送账户信息</li>
+    <li>百度智能云语音识别（提供方：北京百度网讯科技有限公司）：仅在您主动使用语音记账时上传音频片段进行识别，识别结果返回后即销毁</li>
+    <li>爱发电（提供方：上海爱发电网络科技有限公司）：会员订阅支付与到期管理，跳转至爱发电完成支付，本应用不接触您的支付凭证</li>
+    <li>Expo / EAS（提供方：650 Industries, Inc.）：应用打包与崩溃日志收集</li>
+  </ul>
+  <p>以上第三方服务均有各自的隐私政策，建议您前往其官网查阅以了解详细处理规则。</p>
+
+  <h2>6. 应用权限说明</h2>
+  <p>本应用申请的设备权限及其用途如下：</p>
+  <ul>
+    <li>麦克风：仅在您使用语音记账功能时开启，用于录制您的语音指令</li>
+    <li>网络访问：用于云同步、AI 解析、语音识别与会员状态查询</li>
+    <li>通知：用于账单提醒、预算超额提醒（您可在系统设置中关闭）</li>
+    <li>存储读写（Android 12 及以下）：导出或导入账单文件时使用</li>
+  </ul>
+  <p>所有权限均遵循"最小必要"原则，您可在系统设置中随时撤销授权。</p>
+
+  <h2>7. 用户权利</h2>
+  <p>您依法享有以下权利：</p>
+  <ul>
+    <li>访问权：通过应用内"我的"页面查看您的所有数据</li>
+    <li>更正权：随时修改或删除您的记账记录</li>
+    <li>删除权：在设置中注销账号，我们会在 7 个工作日内删除您的云端数据</li>
+    <li>导出权：通过"导出账单"功能获取 CSV/JSON 格式的完整数据副本</li>
+    <li>撤回同意权：随时在设置中关闭云同步或注销账号以撤回数据处理同意</li>
+  </ul>
+
+  <h2>8. 数据保留</h2>
+  <p>我们会在您使用应用期间保留您的数据。卸载应用将清除本地数据；如需删除云端数据，请在应用内注销账号或通过下方邮箱联系我们。</p>
+
+  <h2>9. 未成年人保护</h2>
+  <p>本应用主要面向成年用户。如您是未满 14 周岁的未成年人，请在监护人陪同下阅读本政策并取得监护人同意后再使用。我们不会主动收集 14 周岁以下儿童的个人信息，一经发现将及时删除。</p>
+
+  <h2>10. 政策更新</h2>
+  <p>我们可能会不时更新本隐私政策。重大变更将在应用内显著位置以弹窗形式通知。本政策的最后更新日期见页首。</p>
+
+  <h2>11. 联系我们</h2>
+  <p>如您对本隐私政策有任何疑问、建议或投诉，请通过以下方式联系我们：</p>
+  <p><a href="mailto:support@jianji.app">support@jianji.app</a></p>
+
+  <div class="footer">
+    © 2026 简记 All Rights Reserved
+  </div>
+</div>
+</body>
+</html>
